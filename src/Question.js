@@ -15,7 +15,7 @@ function Question(){
 
   const getAdvice = async () => {
     try {
-      const response = await fetch(`http://www.boredapi.com/api/activity`);
+      const response = await fetch(`http://www.boredapi.com/api/activity/`);
       const data = await response.json();
 
       if (data.activity) {
