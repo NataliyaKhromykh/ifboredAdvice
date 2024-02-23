@@ -6,20 +6,28 @@ function Question(){
     const [advice, setAdvice] = useState('');
 
 
-    // useEffect(() =>{
-    //     getAdvice()
-    // },[])
+
     const getCurrentDate = () => {
         const currentDate = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return currentDate.toLocaleDateString('en-US', options);
     };
 
-    const getAdvice = async() =>{
-        const response = await fetch(`http://www.boredapi.com/api/activity`);
-        const data = await response.json();
+  const getAdvice = async () => {
+    try {
+      const response = await fetch(`http://www.boredapi.com/api/activity`);
+      const data = await response.json();
+
+      if (data.activity) {
         setAdvice(data.activity);
+      } else {
+        setAdvice('No advice available at the moment.');
+      }
+    } catch (error) {
+      console.error('Error fetching advice:', error);
+      setAdvice('An error occurred while fetching advice.');
     }
+  };
 
     return(
         <div className='mainDiv'>
